@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 from datetime import datetime, timedelta
 import re
+import io
 from vnstock import Vnstock, Quote
 
 st.set_page_config(page_title="Định giá cổ phiếu 3 tab", layout="wide")
