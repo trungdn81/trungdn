@@ -219,21 +219,21 @@ with tab2:
                     bctc_file = "du_lieu_chung_khoan.xlsx"
                     gia0_file = "gia_CP.xlsx"
                     gia1_file = "gia_CP(back_test).xlsx"
-                    df_result, summary, df_top_all = run_backtest(bctc_file, gia0_file, gia1_file)
+                    df_result, summary, df_top_all = run_backtest("du_lieu_chung_khoan.xlsx", "gia_CP.xlsx", "gia_CP(back_test).xlsx"                )
+                    st.success("✅ Đã xử lý dữ liệu mẫu thành công")                
+                if df_result is None:
+                    st.warning("⚠️ Không có dữ liệu kết quả.")
+                else:
+                    st.markdown("### 📊 Kết quả tổng hợp")
+                    st.dataframe(summary)
+
+                    st.markdown("### 📋 Chi tiết từng dòng")
+                    st.dataframe(df_result.head(100))
+
+                    st.markdown("### 🏆 Top cổ phiếu đúng cả 5 phương pháp & tăng giá")
+                    st.dataframe(df_top_all)
                 except Exception as e:
                     st.error(f"Lỗi khi đọc dữ liệu mẫu: {e}")
-            if df_result is None:
-                st.warning("⚠️ Không có dữ liệu kết quả.")
-            else:
-                st.markdown("### 📊 Kết quả tổng hợp")
-                st.dataframe(summary)
-
-                st.markdown("### 📋 Chi tiết từng dòng")
-                st.dataframe(df_result.head(100))
-
-                st.markdown("### 🏆 Top cổ phiếu đúng cả 5 phương pháp & tăng giá")
-                st.dataframe(df_top_all)
-
                 with BytesIO() as output:
                     with pd.ExcelWriter(output, engine="openpyxl") as writer:
                         df_result.to_excel(writer, sheet_name="Chi_tiet", index=False)
@@ -257,14 +257,13 @@ with tab3:
             ts_top[key] = st.number_input(f"Trọng số {key}", min_value=0.0, max_value=1.0,
                                           value=TRONG_SO_MAC_DINH[key], step=0.01, key=f"top_{key}")
 
-    if excel_file:
+    # if excel_file:
         if st.button("📊 Lọc Top"):
             results = []
             try:
                 excel_file = "du_lieu_chung_khoan.xlsx"
                 all_sheets = pd.read_excel(excel_file, sheet_name=None)
-            except Exception as e:
-                st.error(f"Lỗi đọc file mẫu: {e}")
+            
                 for sheet_name, df in all_sheets.items():
                     try:
                         df.columns = df.columns.str.strip()
