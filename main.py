@@ -213,27 +213,25 @@ with tab2:
         return df_result, summary, df_top_all
 
    # if bctc_file and gia0_file and gia1_file:
-        if st.button("🚀 Chạy Backtest"):
-            with st.spinner("Đang xử lý dữ liệu..."):
-                try:
-                    bctc_file = "du_lieu_chung_khoan.xlsx"
-                    gia0_file = "gia_CP.xlsx"
-                    gia1_file = "gia_CP(back_test).xlsx"
-                    df_result, summary, df_top_all = run_backtest("du_lieu_chung_khoan.xlsx", "gia_CP.xlsx", "gia_CP(back_test).xlsx"                )
-                    st.success("✅ Đã xử lý dữ liệu mẫu thành công")                
-                    if df_result is None:
-                        st.warning("⚠️ Không có dữ liệu kết quả.")
-                    else:
+            if st.button("🚀 Chạy Backtest"):
+                with st.spinner("Đang xử lý dữ liệu..."):
+                    try:
+                        df_result, summary, df_top_all = run_backtest(
+                        "du_lieu_chung_khoan.xlsx", "gia_CP.xlsx", "gia_CP(back_test).xlsx"
+                        )
+                        st.success("✅ Đã xử lý dữ liệu mẫu thành công")
+
                         st.markdown("### 📊 Kết quả tổng hợp")
                         st.dataframe(summary)
-
+        
                         st.markdown("### 📋 Chi tiết từng dòng")
                         st.dataframe(df_result.head(100))
-
+        
                         st.markdown("### 🏆 Top cổ phiếu đúng cả 5 phương pháp & tăng giá")
                         st.dataframe(df_top_all)
-                except Exception as e:
-                    st.error(f"Lỗi khi đọc dữ liệu mẫu: {e}")
+
+                    except Exception as e:
+                        st.error(f"Lỗi khi đọc dữ liệu mẫu: {e}")
                 with BytesIO() as output:
                     with pd.ExcelWriter(output, engine="openpyxl") as writer:
                         df_result.to_excel(writer, sheet_name="Chi_tiet", index=False)
