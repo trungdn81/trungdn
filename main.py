@@ -221,9 +221,9 @@ with tab2:
                     gia1_file = "gia_CP(back_test).xlsx"
                     df_result, summary, df_top_all = run_backtest("du_lieu_chung_khoan.xlsx", "gia_CP.xlsx", "gia_CP(back_test).xlsx"                )
                     st.success("✅ Đã xử lý dữ liệu mẫu thành công")                
-                if df_result is None:
+                    if df_result is None:
                     st.warning("⚠️ Không có dữ liệu kết quả.")
-                else:
+                    else:
                     st.markdown("### 📊 Kết quả tổng hợp")
                     st.dataframe(summary)
 
