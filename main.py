@@ -215,7 +215,13 @@ with tab2:
     if bctc_file and gia0_file and gia1_file:
         if st.button("🚀 Chạy Backtest"):
             with st.spinner("Đang xử lý dữ liệu..."):
-                df_result, summary, df_top_all = run_backtest(bctc_file, gia0_file, gia1_file)
+                try:
+                    bctc_file = "du_lieu_chung_khoan.xlsx"
+                    gia0_file = "gia_CP.xlsx"
+                    gia1_file = "gia_CP(back_test).xlsx"
+                    df_result, summary, df_top_all = run_backtest(bctc_file, gia0_file, gia1_file)
+                except Exception as e:
+                    st.error(f"Lỗi khi đọc dữ liệu mẫu: {e}")
             if df_result is None:
                 st.warning("⚠️ Không có dữ liệu kết quả.")
             else:
@@ -255,7 +261,10 @@ with tab3:
         if st.button("📊 Lọc Top"):
             results = []
             try:
+                excel_file = "du_lieu_chung_khoan.xlsx"
                 all_sheets = pd.read_excel(excel_file, sheet_name=None)
+            except Exception as e:
+                st.error(f"Lỗi đọc file mẫu: {e}")
                 for sheet_name, df in all_sheets.items():
                     try:
                         df.columns = df.columns.str.strip()
