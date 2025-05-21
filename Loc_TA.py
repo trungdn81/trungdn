@@ -5,6 +5,7 @@ import pandas as pd
 import numpy as np
 from vnstock import Vnstock
 from datetime import datetime, timedelta
+from vnstock import listing_companies
 import io
 
 st.set_page_config(page_title="Lọc cổ phiếu kỹ thuật toàn thị trường", layout="wide")
@@ -89,7 +90,7 @@ def score_stock(df):
 
 # ======================== THỰC THI =============================
 if st.button("🚀 Bắt đầu lọc cổ phiếu kỹ thuật"):
-    all_symbols = Vnstock().listing_companies()['ticker'].tolist()
+    all_symbols = listing_companies()['ticker'].tolist()
     result = []
     progress = st.progress(0)
 
