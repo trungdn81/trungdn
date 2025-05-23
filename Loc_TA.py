@@ -8,6 +8,9 @@ from datetime import datetime, timedelta
 import time
 import io
 
+if not os.path.exists("cache"):
+    os.makedirs("cache")
+df.to_csv(f"cache/{symbol}.csv", index=False)
 def update_price_cache(symbol, start_date, end_date, source="VCI"):
     try:
         path = f"cache/{symbol}.csv"
