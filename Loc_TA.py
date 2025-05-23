@@ -93,6 +93,16 @@ st.sidebar.markdown("### ℹ️ Thông tin chỉ báo")
 for key, val in logic_info.items():
     st.sidebar.markdown(f"**{key}**: {val['mota']} – {val['vaitro']} ({val['uutien']})")
 
+st.markdown("## 🗂️ Chọn cách nạp danh sách mã cổ phiếu")
+option = st.radio("Chọn nguồn dữ liệu:", ["Tải lên file CSV", "Dùng từ GitHub"])
+
+if option == "Tải lên file CSV":
+    uploaded = st.file_uploader("📥 Tải file CSV", type=["csv"])
+    if uploaded:
+        df_input = pd.read_csv(uploaded)
+else:
+    csv_url = "https://raw.githubusercontent.com/trungdn81/dinh_gia-trungdn-/main/danh_sach_ma.csv"
+    df_input = pd.read_csv(csv_url)
 # ==== Preset chiến lược lọc nâng cao (Khôi phục tự động) ==== #
 st.sidebar.markdown("### 🎯 Preset chiến lược lọc")
 
