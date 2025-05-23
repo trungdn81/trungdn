@@ -3,7 +3,6 @@ pandas
 numpy
 vnstock
 openpyxl
-os
 json
 time
 io
