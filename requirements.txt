@@ -4,3 +4,4 @@ numpy
 vnstock
 openpyxl
 plotly
+gdown
